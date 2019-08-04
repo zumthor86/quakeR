@@ -1,0 +1,107 @@
+---
+title: "Plotting NOAA earthquake data using the quakeR package"
+author: "Christopher Sumter"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Plotting NOAA earthquake data using the quaker package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+The U.S. National Oceanographic and Atmospheric Administration (NOAA) maintains a dataset on significant earthquakes around the world. This dataset contains information on approximately 6000 earthquakes over an approximately 4,000 year time span, as of August 2019. Given that this data contains the location as well as the size of the earthquake, its well suited to plotting. The quakeR package contains custom ggplot2 layers, a function to build a leaflet map, as well as some functions use to clean the data before plotting.   
+A snapshot of this data has been included in the package for convenience
+
+```{r load quakes_df}
+
+quakes_df <- quakeR::quakes_df
+
+dplyr::glimpse(quakes_df)
+
+```
+
+
+## Cleaning NOAA data
+
+### Removing country from LOCATION_NAME column
+
+The dataset contains a seperate column containing the country, thus the country within the LOCATION_NAME column can be stripped out using the `eq_location_clean()` function, which will also convert the column to title case.
+
+```{r clean LOCATION_NAME}
+
+head(quakes_df$LOCATION_NAME)
+
+quakes_df %>% 
+  quakeR::eq_location_clean() %>% 
+  dplyr::select(.data$LOCATION_NAME) %>% 
+  head()
+
+
+```
+
+### Preparing earthquake data for plotting
+
+`eq_clean_data` will perform some other cleaning to prep the data for plotting with quakeR functions, it will convert latitude and longitude to numeric values and construct a DATE column by concatenating YEAR, MONTH, DAY.
+
+```{r prep df for plotting}
+
+quakes_df %>% 
+  quakeR::eq_clean_data() %>% 
+  dplyr::select(.data$DATE) %>% 
+  tail()
+
+```
+
+## Plotting NOAA data
+
+### Using ggplot2
+
+The quakeR package contains two ggplot2 geoms: `geom_timeline` and `geom_timeline_label`.
+
+`geom_timeline` will plot each quake as a point in the timeline along the x-axis, an optional categorical y argument plots multiple timelines for the differing levels of the factor.
+
+`geom_timeline_label`, which is intended to be used in conjunction with the `geom_timeline` geom will annotate a given number of quakes by drawing a line from their center and plotting the chosen text.
+
+The cleaning functions described above along with the plotting functions can be combined together to form the following informative plot.
+
+```{r quakeR geoms, fig.width=10, fig.height=8, fig.align='center'}
+
+quakes_df %>%
+  dplyr::filter(YEAR>2000) %>%
+  quakeR::eq_clean_data() %>%
+  quakeR::eq_location_clean() %>%
+  dplyr::filter(COUNTRY %in% c("CHINA", "TURKEY", "INDIA", "RUSSIA")) %>% 
+  ggplot(aes(x=DATE,size=EQ_PRIMARY,y=COUNTRY, color=DEATHS, label=LOCATION_NAME))+
+  quakeR::geom_timeline()+
+  quakeR::geom_timeline_label()+
+  scale_x_date(date_breaks = "1 years", date_labels = "%Y")+
+  scale_size_continuous(name = "Richter Scale Value")+
+  scale_colour_continuous(name="# deaths")+
+  theme_bw()+
+  theme(legend.position="bottom", panel.grid = element_blank())
+
+```
+
+### Using leaflet
+
+The NOAA data lends itself to geospatial plotting and to this end quakeR includes a `eq_map` function that will return a leaflet map, as well as a helper function `eq_create_label` that pre-processes that data to create an informative HTML label for the leaflets markers.
+
+```{r leaflet map, fig.width=6, fig.height=4}
+quakes_df %>%
+  quakeR::eq_clean_data() %>%
+  quakeR::eq_location_clean() %>% 
+  dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>% 
+  dplyr::mutate(popup_text = quakeR::eq_create_label(.)) %>% 
+  quakeR::eq_map(annot_col = "popup_text")
+```
+
+
+

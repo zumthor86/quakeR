@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-#' \dontfun{
+#' \dontrun{
 #'
 #'  quakes_df$popup_text = eq_create_label(quakes_df))
 #'
