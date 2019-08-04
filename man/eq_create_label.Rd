@@ -16,7 +16,7 @@ Character vector of HTML
 Create informative popup label from quakes dataframe
 }
 \examples{
-\dontfun{
+\dontrun{
 
  quakes_df$popup_text = eq_create_label(quakes_df))
 

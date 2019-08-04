@@ -1,14 +1,16 @@
 #' @export
-GeomTimeline <-  ggplot2::ggproto("GeomTimeline",Geom,
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 draw_key_point
+GeomTimeline <-  ggplot2::ggproto("GeomTimeline",ggplot2::Geom,
                  required_aes=c("x"),
-                 default_aes=aes(alpha=0.5,
+                 default_aes=ggplot2::aes(alpha=0.5,
                                  shape=19,
                                  y=0.1,
                                  colour="grey",
                                  fill="grey",
                                  size=1.5,
                                  stroke=0.5),
-                 draw_key=draw_key_point,
+                 draw_key=ggplot2::draw_key_point,
                  draw_panel=function(data, panel_params, coord){
 
                    coords <- coord$transform(data, panel_params)
@@ -79,9 +81,9 @@ geom_timeline <- function(mapping = NULL, data = NULL,
 #' @importFrom dplyr arrange
 #' @importFrom dplyr select
 #' @importFrom dplyr desc
-GeomTimelineLabel <-  ggplot2::ggproto("GeomTimelineLabel",Geom,
+GeomTimelineLabel <-  ggplot2::ggproto("GeomTimelineLabel",ggplot2::Geom,
                                        required_aes=c("x", "label"),
-                                       default_aes=aes(alpha=0.5,
+                                       default_aes=ggplot2::aes(alpha=0.5,
                                                        shape=19,
                                                        y=0.1,
                                                        colour="grey",
@@ -89,7 +91,7 @@ GeomTimelineLabel <-  ggplot2::ggproto("GeomTimelineLabel",Geom,
                                                        size=1.5,
                                                        stroke=0.5
                                        ),
-                                       draw_key=draw_key_point,
+                                       draw_key=ggplot2::draw_key_point,
                                        draw_panel=function(data, panel_params, coord, n_max=5){
 
                                          coords <- coord$transform(data, panel_params) %>%
