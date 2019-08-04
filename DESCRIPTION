@@ -1,0 +1,15 @@
+Package: quakeR
+Type: Package
+Title: Makes working with the NOAA Significant Earthquake Database easier
+Version: 0.0.1
+Author: Christopher Sumter
+Maintainer: Christopher Sumter <csumter1165@gmail.com>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.0
+Imports: 
+    magrittr
