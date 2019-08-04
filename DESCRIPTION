@@ -4,8 +4,7 @@ Title: Makes working with the NOAA Significant Earthquake Database easier
 Version: 0.0.1
 Author: Christopher Sumter
 Maintainer: Christopher Sumter <csumter1165@gmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Provides custom ggplot geoms to plot earthquake data as well as helper functions to clean the data before plotting
 License: CC0
 Encoding: UTF-8
 LazyData: true
@@ -15,7 +14,11 @@ Imports:
     magrittr,
     ggplot2,
     dplyr,
-    purrr
+    purrr,
+    stringr,
+    leaflet,
+    rlang,
+    tidyr
 Suggests: 
     knitr,
     rmarkdown,
