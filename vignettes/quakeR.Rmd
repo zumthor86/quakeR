@@ -37,6 +37,8 @@ The dataset contains a seperate column containing the country, thus the country 
 
 ```{r clean LOCATION_NAME}
 
+library(magrittr)
+
 head(quakes_df$LOCATION_NAME)
 
 quakes_df %>% 
@@ -73,6 +75,8 @@ The quakeR package contains two ggplot2 geoms: `geom_timeline` and `geom_timelin
 The cleaning functions described above along with the plotting functions can be combined together to form the following informative plot.
 
 ```{r quakeR geoms, fig.width=10, fig.height=8, fig.align='center'}
+
+library(ggplot2)
 
 quakes_df %>%
   dplyr::filter(YEAR>2000) %>%
