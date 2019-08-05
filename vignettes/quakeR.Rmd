@@ -106,9 +106,10 @@ The NOAA data lends itself to geospatial plotting and to this end quakeR include
 
 ```{r leaflet map, fig.width=6, fig.height=4}
 quakes_df %>%
+  dplyr::filter(.data$YEAR>2000) %>% 
   quakeR::eq_clean_data() %>%
   quakeR::eq_location_clean() %>% 
-  dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>% 
+  dplyr::filter(COUNTRY == "MEXICO") %>% 
   dplyr::mutate(popup_text = quakeR::eq_create_label(.)) %>% 
   quakeR::eq_map(annot_col = "popup_text")
 ```

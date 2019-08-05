@@ -9,7 +9,7 @@
 #' @importFrom leaflet leaflet
 #' @importFrom leaflet addTiles
 #' @importFrom leaflet addCircleMarkers
-#' @importFrom assertthat::assert_that
+#' @importFrom assertthat assert_that
 #'
 #' @examples
 #' \dontrun{
@@ -19,7 +19,7 @@
 #'  dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) %>%
 #'  dplyr::mutate(popup_text = eq_create_label(.)) %>%
 #'  eq_map(annot_col = "popup_text")
-#'
+#'}
 #'
 eq_map <- function(df, annot_col='popup_text'){
 

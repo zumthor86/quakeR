@@ -18,7 +18,9 @@ Imports:
     stringr,
     leaflet,
     rlang,
-    tidyr
+    tidyr,
+    assertthat,
+    tibble
 Suggests: 
     knitr,
     rmarkdown,
