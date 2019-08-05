@@ -1,3 +1,6 @@
+#' GeomTimeLine geom
+#' @format NULL
+#' @usage NULL
 #' @export
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 draw_key_point
@@ -51,6 +54,7 @@ GeomTimeline <-  ggplot2::ggproto("GeomTimeline",ggplot2::Geom,
 #' @inheritParams ggplot2::layer
 #'
 #' @param ... Additional parameters passed onto layer function
+#' @param na.rm If false a warning is given when missing values are removed
 #' @examples
 #' \dontrun{
 #' quakes_df %>%
@@ -72,7 +76,10 @@ geom_timeline <- function(mapping = NULL, data = NULL,
   )
 }
 
-
+#' GeomTimeLineLabel geom
+#'
+#' @format NULL
+#' @usage NULL
 #' @export
 #' @importFrom tidyr nest
 #' @importFrom tidyr unnest
@@ -138,6 +145,7 @@ GeomTimelineLabel <-  ggplot2::ggproto("GeomTimelineLabel",ggplot2::Geom,
 #'
 #' @inheritParams ggplot2::layer
 #' @param n_max Number of points to annotate
+#' @param na.rm If false a warning is given when missing values are removed
 #' @param ... Other arguments passed to layer function
 #' @examples
 #' \dontrun{

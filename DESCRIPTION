@@ -4,7 +4,7 @@ Title: Makes working with the NOAA Significant Earthquake Database easier
 Version: 0.0.1
 Author: Christopher Sumter
 Maintainer: Christopher Sumter <csumter1165@gmail.com>
-Description: Provides custom ggplot geoms to plot earthquake data as well as helper functions to clean the data before plotting
+Description: Provides custom ggplot geoms to plot earthquake data as well as helper functions to clean the data before plotting.
 License: CC0
 Encoding: UTF-8
 LazyData: true
