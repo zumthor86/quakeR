@@ -83,11 +83,11 @@ The cleaning functions described above along with the plotting functions can be 
 library(ggplot2)
 
 quakes_df %>%
-  dplyr::filter(YEAR>2000) %>%
+  dplyr::filter(.data$YEAR>2000) %>%
   quakeR::eq_clean_data() %>%
   quakeR::eq_location_clean() %>%
-  dplyr::filter(COUNTRY %in% c("CHINA", "TURKEY", "INDIA", "RUSSIA")) %>% 
-  ggplot(aes(x=DATE,size=EQ_PRIMARY,y=COUNTRY, color=DEATHS, label=LOCATION_NAME))+
+  dplyr::filter(.data$COUNTRY %in% c("CHINA", "TURKEY", "INDIA", "RUSSIA")) %>% 
+  ggplot(aes(x=.data$DATE,size=.data$EQ_PRIMARY,y=.data$COUNTRY, color=.data$DEATHS,      label=.data$LOCATION_NAME))+
   quakeR::geom_timeline()+
   quakeR::geom_timeline_label()+
   scale_x_date(date_breaks = "1 years", date_labels = "%Y")+
