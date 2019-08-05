@@ -11,12 +11,12 @@ vignette: >
 
 ```{r setup, include = FALSE}
 
-LOCAL <- identical(Sys.getenv("LOCAL"), "True")
+LOCAL <- identical(Sys.getenv("LOCAL"), "TRUE")
 
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
-  purl = LOCAL
+  eval = LOCAL
 )
 
 library(ggplot2)
