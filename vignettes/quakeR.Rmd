@@ -11,13 +11,17 @@ vignette: >
 
 ```{r setup, include = FALSE}
 
-TRAVIS <- !identical(tolower(Sys.getenv("TRAVIS")), "true")
+LOCAL <- identical(Sys.getenv("LOCAL"), "True")
 
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
-  purl = TRAVIS
+  purl = LOCAL
 )
+
+library(ggplot2)
+library(magrittr)
+
 ```
 
 ## Introduction
@@ -41,7 +45,6 @@ The dataset contains a seperate column containing the country, thus the country 
 
 ```{r clean LOCATION_NAME}
 
-library(magrittr)
 
 head(quakes_df$LOCATION_NAME)
 
@@ -80,7 +83,6 @@ The cleaning functions described above along with the plotting functions can be 
 
 ```{r quakeR geoms, fig.width=10, fig.height=8, fig.align='center'}
 
-library(ggplot2)
 
 quakes_df %>%
   dplyr::filter(.data$YEAR>2000) %>%
