@@ -1,3 +1,7 @@
+## Status
+
+[![Travis build status](https://travis-ci.org/zumthor86/quakeR.svg?branch=master)](https://travis-ci.org/zumthor86/quakeR)
+
 ## Introduction
 The U.S. National Oceanographic and Atmospheric Administration (NOAA) maintains a dataset on significant earthquakes around the world. 
 The quakeR package includes functions to clean the data in preparation for plotting as well as the plotting functions themselves.
