@@ -8,10 +8,10 @@ The quakeR package includes functions to clean the data in preparation for plott
 
 ### Custom ggplot2 layers
 
-![](images/timeline.jpeg)
+![](timeline.jpeg)
 
 ### Leaflet map (note this is an image of the interactive map)
 
-![](images/leaflet.png)
+![](leaflet.png)
 
 For more info check out the package vignette
