@@ -31,14 +31,15 @@ GeomTimeline <-  ggplot2::ggproto("GeomTimeline",ggplot2::Geom,
                      dplyr::summarise(ax_start = min(.data$val), ax_stop =max(.data$val)) %>%
                      tidyr::gather(key = "point", value = "val", .data$ax_start:.data$ax_stop)
 
-                   xs <- lines[lines$axis=="x","val"]
+                   xs <- lines[["val"]][lines$axis == "x"]
 
-                   ys <- lines[lines$axis=="y","val"]
+                   ys <- lines[["val"]][lines$axis == "y"]
 
-                   grp <- lines[lines$axis=='x', "group"]
+                   grp <- lines[["group"]][lines$axis == "x"]
 
-                   timeline <- grid::polylineGrob(x = xs$val,y = ys$val,
-                                                  id = grp$group,
+                   timeline <- grid::polylineGrob(x = xs,
+                                                  y = ys,
+                                                  id = grp,
                                     gp = grid::gpar(col = "black",
                                                    alpha = 1,
                                                    fill = "black"))
@@ -103,7 +104,7 @@ GeomTimelineLabel <-  ggplot2::ggproto("GeomTimelineLabel",ggplot2::Geom,
 
                                          coords <- coord$transform(data, panel_params) %>%
                                            tidyr::nest(-.data$group) %>%
-                                           dplyr::mutate(big_quakes = purrr::map(data, ~dplyr::arrange(.,dplyr::desc(size)) %>% head(5))) %>%
+                                           dplyr::mutate(big_quakes = purrr::map(data, ~dplyr::arrange(.,dplyr::desc(size)) %>% head(n_max))) %>%
                                            dplyr::select(-.data$data) %>%
                                            tidyr::unnest()
 
@@ -116,11 +117,11 @@ GeomTimelineLabel <-  ggplot2::ggproto("GeomTimelineLabel",ggplot2::Geom,
                                            dplyr::select(.data$rowid, dplyr::matches("x|y")) %>%
                                            tidyr::gather(key = "coord", value = "val", .data$x, .data$x_end, .data$y, .data$y_end)
 
-                                         xs <- line_coords[stringr::str_detect(line_coords$coord, "x"),"val"]
+                                         xs <- line_coords[["val"]][stringr::str_detect(line_coords$coord, "x")]
 
-                                         ys <- line_coords[stringr::str_detect(line_coords$coord, "y"),"val"]
+                                         ys <- line_coords[["val"]][stringr::str_detect(line_coords$coord, "y")]
 
-                                         line_ids <- line_coords[stringr::str_detect(line_coords$coord, "x"), "rowid"]
+                                         line_ids <- line_coords[["rowid"]][stringr::str_detect(line_coords$coord, "x")]
 
 
                                          qk_lines <- grid::polylineGrob(x = xs,
